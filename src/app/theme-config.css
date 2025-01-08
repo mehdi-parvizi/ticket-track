@@ -1,3 +1,10 @@
 .radix-themes {
   --default-font-family: var(--font-inter);
 }
+
+:root,
+.light,
+.light-theme,
+.radix-themes {
+  --color-background: #faf7ff;
+}

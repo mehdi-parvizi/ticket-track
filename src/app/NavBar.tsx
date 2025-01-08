@@ -1,8 +1,12 @@
+"use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 import { RiBug2Fill } from "react-icons/ri";
+import classNames from "classnames";
 
 const NavBar = () => {
+  const pathName = usePathname();
   const routes = [
     { url: "/", name: "Dashboard" },
     { url: "/issues", name: "Issues" },
@@ -16,7 +20,11 @@ const NavBar = () => {
         {routes.map((route) => (
           <Link
             key={route.url}
-            className="text-zinc-500 hover:text-zinc-800 transition-colors"
+            className={classNames({
+              "text-zinc-900": route.url === pathName,
+              "text-zinc-500": route.url !== pathName,
+              "hover:text-zinc-800 transition-colors": true,
+            })}
             href={route.url}
           >
             {route.name}

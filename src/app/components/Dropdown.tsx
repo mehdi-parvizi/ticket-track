@@ -2,24 +2,27 @@ import { Status } from "@prisma/client";
 import { Button, DropdownMenu } from "@radix-ui/themes";
 
 interface Props {
-  label: string;
-  options?: { label: string; value: Status }[];
+  lable: string;
+  options?: { lable: string; value: Status }[];
   onValueSelect: (value: Status | null) => void;
   value: Status | null;
 }
 
-const labelMap: Record<Status, { label: string }> = {
-  OPEN: { label: "Open" },
-  CLOSED: { label: "Closed" },
-  IN_PROGRESS: { label: "In Progress" },
+const valueMap: Record<
+  Status,
+  { lable: string; color: "red" | "violet" | "green" }
+> = {
+  OPEN: { lable: "Open", color: "red" },
+  CLOSED: { lable: "Closed", color: "green" },
+  IN_PROGRESS: { lable: "In Progress", color: "violet" },
 };
 
-const Dropdown = ({ label, options, onValueSelect, value }: Props) => {
+const Dropdown = ({ lable, options, onValueSelect, value }: Props) => {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
-        <Button variant="soft">
-          {value ? labelMap[value].label : label}
+        <Button variant="soft" color={value ? valueMap[value].color : "violet"}>
+          {value ? valueMap[value].lable : lable}
           <DropdownMenu.TriggerIcon />
         </Button>
       </DropdownMenu.Trigger>
@@ -28,8 +31,9 @@ const Dropdown = ({ label, options, onValueSelect, value }: Props) => {
           <DropdownMenu.Item
             onSelect={() => onValueSelect(option.value)}
             key={index}
+            color={valueMap[option.value].color}
           >
-            {option.label}
+            {option.lable}
           </DropdownMenu.Item>
         ))}
       </DropdownMenu.Content>

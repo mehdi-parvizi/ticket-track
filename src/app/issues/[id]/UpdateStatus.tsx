@@ -12,9 +12,9 @@ const UpdateStatus = ({ issueId }: { issueId: number }) => {
   const [value, setValue] = useState<Status | null>(null);
   const router = useRouter();
   const options = [
-    { label: "Open", value: Status.OPEN },
-    { label: "In Progress", value: Status.IN_PROGRESS },
-    { label: "Closed", value: Status.CLOSED },
+    { lable: "Open", value: Status.OPEN },
+    { lable: "In Progress", value: Status.IN_PROGRESS },
+    { lable: "Closed", value: Status.CLOSED },
   ];
 
   const handleUpdate = async () => {
@@ -34,7 +34,7 @@ const UpdateStatus = ({ issueId }: { issueId: number }) => {
         <AlertDialog.Description className="flex items-center gap-2">
           Update status to{" "}
           <Dropdown
-            label="Status"
+            lable="Status"
             onValueSelect={(value) => setValue(value)}
             options={options}
             value={value}

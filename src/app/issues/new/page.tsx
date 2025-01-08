@@ -5,12 +5,13 @@ import "easymde/dist/easymde.min.css";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { routes } from "@/app/utils/routes";
+import { routes } from "@/app/routes/routes";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createIssueSchema } from "@/app/schema/validationSchemas";
 import { z } from "zod";
 import ErrorMessage from "@/app/components/ErrorMessage";
+import { ENDPOINTS } from "@/app/routes/endpoints";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
@@ -25,6 +26,17 @@ const NewIssuePage = () => {
   });
   const router = useRouter();
   const [error, setError] = useState("");
+
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      await axios.post(ENDPOINTS.ISSUE, data);
+      setError("");
+      router.push(routes.issues.href);
+    } catch {
+      setError("An unexpected error occured");
+    }
+  });
+
   return (
     <div className="max-w-xl mb-5">
       {error && (
@@ -32,18 +44,7 @@ const NewIssuePage = () => {
           <Callout.Text>{error}</Callout.Text>
         </Callout.Root>
       )}
-      <form
-        onSubmit={handleSubmit(async (data) => {
-          try {
-            await axios.post("/api/issues", data);
-            setError("");
-            router.push(routes.issues.href);
-          } catch {
-            setError("An unexpected error occured");
-          }
-        })}
-        className="max-w-xl space-y-3"
-      >
+      <form onSubmit={onSubmit} className="max-w-xl space-y-3">
         <div className="h-10 text-sm flex flex-col">
           <TextField.Root {...register("title")} placeholder="Title" />
           <ErrorMessage>{errors.title?.message}</ErrorMessage>
@@ -58,7 +59,9 @@ const NewIssuePage = () => {
           />
           <ErrorMessage>{errors.description?.message}</ErrorMessage>
         </div>
-        <Button>{isSubmitting ? <Spinner /> : "Submit new issue "}</Button>
+        <Button disabled={isSubmitting}>
+          {isSubmitting ? <Spinner /> : "Submit new issue "}
+        </Button>
       </form>
     </div>
   );

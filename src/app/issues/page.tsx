@@ -1,7 +1,7 @@
 import { Button } from "@radix-ui/themes";
 import Link from "next/link";
 import React from "react";
-import { routes } from "../utils/routes";
+import { routes } from "../routes/routes";
 
 const IssuesPage = () => {
   return (

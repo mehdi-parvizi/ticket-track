@@ -1,22 +1,23 @@
 "use client";
 import { ENDPOINTS } from "@/app/routes/endpoints";
 import { routes } from "@/app/routes/routes";
-import { AlertDialog, Button, Flex } from "@radix-ui/themes";
+import { AlertDialog, Button, Flex, Spinner } from "@radix-ui/themes";
 import axios from "axios";
-import { error } from "console";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const DeleteButton = ({ issueId }: { issueId: number }) => {
   const [isError, setIsError] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const router = useRouter();
   const handleDelete = async () => {
     try {
-      throw new Error();
+      setIsDeleting(true);
       await axios.delete(ENDPOINTS.ISSUE + issueId);
       router.push(routes.issues.href);
       router.refresh();
     } catch {
+      setIsDeleting(false);
       setIsError(true);
     }
   };
@@ -25,7 +26,9 @@ const DeleteButton = ({ issueId }: { issueId: number }) => {
     <>
       <AlertDialog.Root>
         <AlertDialog.Trigger>
-          <Button color="red">Delete</Button>
+          <Button disabled={isDeleting} color="red">
+            {isDeleting ? <Spinner /> : "Delete"}
+          </Button>
         </AlertDialog.Trigger>
         <AlertDialog.Content>
           <AlertDialog.Title>Confirm Deletion</AlertDialog.Title>
@@ -40,7 +43,12 @@ const DeleteButton = ({ issueId }: { issueId: number }) => {
               </Button>
             </AlertDialog.Cancel>
             <AlertDialog.Action>
-              <Button onClick={handleDelete} variant="solid" color="red">
+              <Button
+                onClick={handleDelete}
+                disabled={isDeleting}
+                variant="solid"
+                color="red"
+              >
                 Delete Issue
               </Button>
             </AlertDialog.Action>

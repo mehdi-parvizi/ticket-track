@@ -1,5 +1,5 @@
 "use client";
-import { Button, Callout, Text, TextField } from "@radix-ui/themes";
+import { Button, Callout, Spinner, TextField } from "@radix-ui/themes";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import { useForm, Controller } from "react-hook-form";
@@ -19,7 +19,7 @@ const NewIssuePage = () => {
     register,
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<IssueForm>({
     resolver: zodResolver(createIssueSchema),
   });
@@ -58,7 +58,7 @@ const NewIssuePage = () => {
           />
           <ErrorMessage>{errors.description?.message}</ErrorMessage>
         </div>
-        <Button>Submit new issue</Button>
+        <Button>{isSubmitting ? <Spinner /> : "Submit new issue "}</Button>
       </form>
     </div>
   );

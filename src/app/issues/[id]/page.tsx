@@ -4,6 +4,7 @@ import { prisma } from "../../../../prisma/client";
 import EditIssueButton from "./EditIssueButton";
 import IssueDetails from "./IssueDetails";
 import DeleteButton from "./DeleteButton";
+import UpdateStatus from "./UpdateStatus";
 interface Props {
   params: Promise<{ id: string }>;
 }
@@ -25,6 +26,7 @@ const IssueDetailPage = async ({ params }: Props) => {
       <Flex gap="4" direction="column">
         <EditIssueButton issueId={issue.id} />
         <DeleteButton issueId={issue.id} />
+        <UpdateStatus issueId={issue.id} />
       </Flex>
     </Grid>
   );

@@ -21,7 +21,6 @@ const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
 type IssueFormData = z.infer<typeof issueSchema>;
 
 const IssueForm = ({ issue }: { issue?: Issue }) => {
-  console.log(issue);
   const {
     register,
     control,
@@ -35,7 +34,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      if (issue) await axios.patch(ENDPOINTS.ISSUE, data);
+      if (issue) await axios.patch(ENDPOINTS.ISSUE + "/" + issue.id, data);
       else await axios.post(ENDPOINTS.ISSUE, data);
       setError("");
       router.push(routes.issues.href);

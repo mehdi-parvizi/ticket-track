@@ -1,10 +1,10 @@
 export const routes = {
   issues: {
-    href: "/issues",
+    href: "/issues/",
     label: "Issues",
   },
   newIssues: {
-    href: "/issues/new",
+    href: "/issues/new/",
     label: "New issues",
   },
 };

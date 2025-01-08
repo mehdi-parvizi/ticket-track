@@ -1,3 +1,3 @@
 export enum ENDPOINTS {
-  ISSUE = "/api/issues",
+  ISSUE = "/api/issues/",
 }

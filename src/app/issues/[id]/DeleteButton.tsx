@@ -9,8 +9,9 @@ const DeleteButton = ({ issueId }: { issueId: number }) => {
   const router = useRouter();
 
   const handleDelete = async () => {
-    await axios.delete(ENDPOINTS.ISSUE + "/" + issueId);
+    await axios.delete(ENDPOINTS.ISSUE + issueId);
     router.push(routes.issues.href);
+    router.refresh();
   };
 
   return (
@@ -31,7 +32,7 @@ const DeleteButton = ({ issueId }: { issueId: number }) => {
             </Button>
           </AlertDialog.Cancel>
           <AlertDialog.Action>
-            <Button variant="solid" color="red">
+            <Button onClick={handleDelete} variant="solid" color="red">
               Delete Issue
             </Button>
           </AlertDialog.Action>

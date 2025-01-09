@@ -1,7 +1,7 @@
 import { Button } from "@radix-ui/themes";
 import Link from "next/link";
-import { routes } from "../routes/routes";
 import StatusFilter from "./StatusFilter";
+import { routes } from "@/app/routes/routes";
 
 const IssueActions = () => {
   return (

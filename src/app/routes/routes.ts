@@ -7,4 +7,12 @@ export const routes = {
     href: "/issues/new/",
     label: "New issues",
   },
+  signIn: {
+    href: "/api/auth/signin",
+    label: "Sign in",
+  },
+  signOut: {
+    href: "/api/auth/signout",
+    label: "Sign out",
+  },
 };

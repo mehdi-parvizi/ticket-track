@@ -51,7 +51,7 @@ const NavBar = () => {
               {loginRoutes.signIn.label}
             </Link>
           )}
-          {session?.user && <p>{session.user.name}</p>}
+          {session?.user && <p>{session.user.email}</p>}
           {session?.user && session.user.image && (
             <img
               className="rounded-full w-10 h-10"

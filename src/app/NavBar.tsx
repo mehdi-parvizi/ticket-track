@@ -25,9 +25,8 @@ const NavBar = () => {
               <li key={route.url}>
                 <Link
                   className={classNames({
+                    "nav-link": true,
                     "text-zinc-900": route.url === pathName,
-                    "text-zinc-500": route.url !== pathName,
-                    "hover:text-zinc-800 transition-colors": true,
                   })}
                   href={route.url}
                 >

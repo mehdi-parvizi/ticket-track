@@ -10,10 +10,14 @@ const AuthStatus = () => {
   return (
     <>
       {status === "authenticated" && (
-        <Link href={routes.signOut.href}>{routes.signOut.label}</Link>
+        <Link className="nav-link" href={routes.signOut.href}>
+          {routes.signOut.label}
+        </Link>
       )}
       {status === "unauthenticated" && (
-        <Link href={routes.signIn.href}>{routes.signIn.label}</Link>
+        <Link className="nav-link" href={routes.signIn.href}>
+          {routes.signIn.label}
+        </Link>
       )}
       {session?.user && <p>{session.user.email}</p>}
       {session?.user && session.user.image && (

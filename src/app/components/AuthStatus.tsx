@@ -4,11 +4,13 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
 import { routes } from "../routes/routes";
+import Skeleton from "./Skeleton";
 
 const AuthStatus = () => {
   const { data: session, status } = useSession();
   return (
     <>
+      {status === "loading" && <Skeleton width="3rem" />}
       {status === "authenticated" && (
         <Link className="nav-link" href={routes.signOut.href}>
           {routes.signOut.label}

@@ -8,17 +8,7 @@ import axios from "axios";
 import { Skeleton } from "@/app/components/index";
 
 const AssigneeSelect = ({ issue }: { issue: Issue }) => {
-  const {
-    data: users,
-    error,
-    isLoading,
-  } = useQuery<User[]>({
-    queryKey: ["users"],
-    queryFn: () => axios.get(ENDPOINTS.USERS).then((res) => res.data),
-    staleTime: 60 * 1000, //60s,
-    retry: 2,
-    refetchOnWindowFocus: false,
-  });
+  const { data: users, error, isLoading } = useUsers();
 
   if (error) return null;
 
@@ -57,5 +47,14 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
     </>
   );
 };
+
+const useUsers = () =>
+  useQuery<User[]>({
+    queryKey: ["users"],
+    queryFn: () => axios.get(ENDPOINTS.USERS).then((res) => res.data),
+    staleTime: 60 * 10 * 1000, //10min,
+    retry: 2,
+    refetchOnWindowFocus: false,
+  });
 
 export default AssigneeSelect;

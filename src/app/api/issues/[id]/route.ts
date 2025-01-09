@@ -8,9 +8,9 @@ export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const session = await auth();
-  if (!session)
-    return NextResponse.json({ error: "Unathorized" }, { status: 401 });
+  // const session = await auth();
+  // if (!session)
+  //   return NextResponse.json({ error: "Unathorized" }, { status: 401 });
   const body = await req.json();
   const validation = patchIssueSchema.safeParse(body);
   if (!validation.success)

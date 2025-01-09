@@ -1,16 +1,13 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import { RiBug2Fill } from "react-icons/ri";
 import classNames from "classnames";
-import { useSession } from "next-auth/react";
-import { routes as loginRoutes } from "./routes/routes";
 import { Container } from "@radix-ui/themes";
+import AuthStatus from "./components/AuthStatus";
 
 const NavBar = () => {
-  const { data: session, status } = useSession();
   const pathName = usePathname();
   const routes = [
     { url: "/", name: "Dashboard" },
@@ -41,24 +38,7 @@ const NavBar = () => {
           </ul>
         </div>
         <div className="flex space-x-5 items-center">
-          {status === "authenticated" && (
-            <Link href={loginRoutes.signOut.href}>
-              {loginRoutes.signOut.label}
-            </Link>
-          )}
-          {status === "unauthenticated" && (
-            <Link href={loginRoutes.signIn.href}>
-              {loginRoutes.signIn.label}
-            </Link>
-          )}
-          {session?.user && <p>{session.user.email}</p>}
-          {session?.user && session.user.image && (
-            <img
-              className="rounded-full w-10 h-10"
-              src={session.user.image}
-              alt="profile-photo"
-            />
-          )}
+          <AuthStatus />
         </div>
       </nav>
     </Container>

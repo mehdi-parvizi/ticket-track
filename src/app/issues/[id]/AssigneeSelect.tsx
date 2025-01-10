@@ -1,13 +1,18 @@
 "use client";
 import { ENDPOINTS } from "@/app/routes/endpoints";
-import { Issue, User } from "@prisma/client";
+import { User } from "@prisma/client";
 import toast, { Toaster } from "react-hot-toast";
 import { Select } from "@radix-ui/themes";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Skeleton } from "@/app/components/index";
 
-const AssigneeSelect = ({ issue }: { issue: Issue }) => {
+interface Props {
+  issueId: number | null;
+  assigneeId: string | null;
+}
+
+const AssigneeSelect = ({ issueId, assigneeId }: Props) => {
   const { data: users, error, isLoading } = useUsers();
 
   if (error) return null;
@@ -16,7 +21,7 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
 
   const handleIssueAssignment = async (userId: string) => {
     try {
-      await axios.patch(ENDPOINTS.ISSUE + issue.id, {
+      await axios.patch(ENDPOINTS.ISSUE + issueId, {
         assignedToUserId: userId === "unassigned" ? null : userId,
       });
     } catch {
@@ -27,7 +32,7 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
   return (
     <>
       <Select.Root
-        defaultValue={issue.assignedToUserId ?? "unassigned"}
+        defaultValue={assigneeId ?? "unassigned"}
         onValueChange={handleIssueAssignment}
       >
         <Select.Trigger placeholder="Assign..." />

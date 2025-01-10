@@ -5,7 +5,7 @@ import { routes } from "@/app/routes/routes";
 
 const IssueActions = () => {
   return (
-    <div className="mb-5 flex justify-end gap-5">
+    <div className="flex justify-end gap-5">
       <StatusFilter />
       <Button>
         <Link href={routes.newIssues.href}>{routes.newIssues.label}</Link>
